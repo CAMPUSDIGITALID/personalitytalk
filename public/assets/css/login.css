@@ -1,0 +1,35 @@
+body{ background-color: var(--light)}
+.auth-wrapper {height: calc(100vh)!important;}
+#loginform img {max-width: 100%;}
+.input-group>.input-group-append:not(:last-child)>.input-group-text {border-top-right-radius: 2px; border-bottom-right-radius: 2px;}
+.form-group input, .form-group select, .form-group textarea{font-weight: normal;}
+#btn-toggle-password {cursor: pointer;}
+.btn-theme-1{background-color: var(--color-1); color: #fff; transition: .25s ease}
+.btn-theme-1:hover{filter: saturate(0.5);}
+.rounded{border-radius: .25em!important}
+.rounded-1{border-radius: .5em}
+.rounded-2{border-radius: 1em}
+
+/* Sidebar */
+#sidebar {padding: 1rem;}
+
+/* Navbar */
+@media (max-width: 767px) { header > nav .navbar-brand {right: 0px!important;} }
+header > nav .navbar-brand img, header > nav .navbar-text img {width: 140px!important;}
+header > nav .search-wrapper {border: 1px solid #505763;}
+header > nav ul.n-log li .btn {padding: 8px!important; width: auto!important;}
+header > nav ul.n-log li .btn.btn-borderless {border-width: 0px!important;}
+.dropdown-item:hover, .dropdown-item:active {background-color: #fb8312!important; color: #fff!important;}
+.btn.btn-default:hover {color: #fb8312!important; border-color: #fb8312!important;}
+.btn.btn-primary {background-color: #fb8312!important; border-color: #fb8312!important;}
+.btn.btn-primary:hover {background-color: #c16c1c!important; border-color: #c16c1c!important;}
+.btn.btn-secondary {background-color: #34495e!important; color: #fff!important; border-color: #34495e!important;}
+.btn.btn-secondary:hover {background-color: #668baf!important; border-color: #668baf!important;}
+.link-primary {color: #fb8312!important;}
+.link-primary:hover, .link-primary:active {color: #c16c1c!important;}
+#sidebar .sidebar-menu .sidebar-dropdown.active .sidebar-submenu {display: block!important}
+#sidebar ul li.menu-label:active, #sidebar ul li.menu-label:focus, #sidebar ul li.menu-label:hover, #sidebar ul li.menu-link:active, #sidebar ul li.menu-link:focus, #sidebar ul li.menu-link:hover{border-radius: .5em; transition: var(--transition)}
+#sidebar .sidebar-menu .sidebar-dropdown .drop-icon{top: 4px}
+
+/* Footer */
+footer {background-color: #34495e!important;}

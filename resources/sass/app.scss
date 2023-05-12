@@ -1,0 +1,11 @@
+//
+$border-radius: 1rem;
+$transparent: transparent;
+
+.card{
+    border-radius: $border-radius;
+    border-color: $transparent;
+    .card-body{
+        
+    }
+}
