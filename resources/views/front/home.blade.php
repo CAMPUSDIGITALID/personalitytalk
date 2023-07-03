@@ -353,6 +353,7 @@
 		</div>
 	</div>
 </section>
+
 <section id="simple-profile">
 	<div class="container h-100 section-block">
 		<div class="row h-100">
@@ -361,12 +362,17 @@
 					<img width="80" class="me-3 mb-3 mb-lg-0" src="{{asset('assets/images/category/meditation.svg')}}">
 					<div class="text-center">Apakah Anda Praktisi SDM, Psikolog, Guru, Dosen, Praktisi NLP, Hypnoterapis, atau Mahasiswa Psikologi?<br>PsikologAnda adalah solusi alternatif pembelajaran praktis seputar ilmu psikologi dan terapannya<br> untuk membantu Anda dalam hal pengembangan diri, komunikasi, karir, dan keluarga.
 					</div>
-					<a href="/register" class="btn btn-primary mt-3 rounded-1">Daftar Sekarang</a>
+					@if(Auth::guest())
+						<a href="/register" class="btn btn-primary mt-3 rounded-1">Daftar Sekarang</a>
+					@else
+						<a href="#" class="btn btn-primary mt-3 rounded-1"><b>Mulai Belajar</b></a>
+					@endif
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
+
 <section id="partner">
 	<div class="container h-100 section-block">
 		<div class="row h-100">
@@ -386,17 +392,22 @@
 		</div>
 	</div>
 </section>
+
 <section id="see-more" class="bg-light py-5">
+	
 	<div class="container h-100">
 		<div class="row h-100">
 			<div class="col-12 text-center my-auto">
 				<img width="80" class="mb-3" src="{{asset('assets/images/category/woman.svg')}}">
 				<h2>Mulai Belajar Sekarang</h2>
 				<div>Tunggu apa lagi, mulailah daftar disini, tontonlah video-video untuk meningkatkan pengetahuan kamu, dan baca juga e-book gratis di dalamnya.</div>
+				@if(Auth::guest())
 				<a href="/register" class="btn btn-primary mt-3 rounded-1">Daftar Sekarang</a>
+				@endif
 			</div>
 		</div>
 	</div>
+	
 </section>
 @endsection
 
