@@ -5,7 +5,7 @@ $(function () {
     bar += '<header>';
         bar += '<nav class="navbar navbar-expand-lg navbar-light py-2 fixed-top bg-white shadow-sm">';
             bar += '<div class="container">';
-                bar += '<a class="navbar-brand mb-0" href="https://psikologanda.com"><img src="https://psikologanda.com/assets/images/logo/2023-07-03-10-38-48.png" alt="Logo PsikologAnda">'; bar += '</a>';
+                // bar += '<a class="navbar-brand mb-0" href="https://psikologanda.com"><img src="https://psikologanda.com/assets/images/logo/2023-07-03-10-38-48.png" alt="Logo PsikologAnda">'; bar += '</a>';
                 bar += '<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>';
                 bar += '<div class="collapse navbar-collapse" id="navbarResponsive">';
                     bar += '<div class="header-right ms-auto">';
@@ -54,7 +54,7 @@ $(function () {
                     bar += '<div class="row">';
                         bar += '<div class="col-12 col-md-6 d-flex justify-content-between">';
                             bar += '<ul class="list-unstyled">';
-                                bar += '<li>'; bar += '<a class="text-white text-decoration-none" href="https://psikologanda.com/tentang-kami">Tentang PersonalityTalk</a>'; bar += '</li>';
+                                bar += '<li>'; bar += '<a class="text-white text-decoration-none" href="https://psikologanda.com/tentang-kami">Tentang PsikologAnda</a>'; bar += '</li>';
                                 bar += '<li>'; bar += '<a class="text-white text-decoration-none" href="#">Kontak Kami</a>'; bar += '</li>';
                                 bar += '<li>'; bar += '<a class="text-white text-decoration-none" href="https://psikologanda.com/karir">Karir</a>'; bar += '</li>';
                             bar += '</ul>';
