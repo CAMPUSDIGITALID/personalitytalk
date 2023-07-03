@@ -140,8 +140,8 @@
 						<img width="100" src="{{asset('assets/images/logo/1598935068-icon.png')}}" style="filter: brightness(0) invert(1);">
 					</div>
 					<div class="media-body">
-						<h3 class="title">Apa itu PersonalityTalk?</h3>
-						<p class="m-0">PersonalityTalk adalah lembaga yang bergerak di bidang jasa training, coaching, dan consulting dalam bidang psikologi.<br>Berdiri sejak tahun 2014, Alhamdulillah PersonalityTalk telah membantu banyak orang dalam menyelesaikan permasalahan tentang kehidupan keluarga, karir, dan bisnis. Dengan para mentor yang berpengalaman di bidangnya menjadikan PersonalityTalk dipercaya menjadi media tempat belajar para Mahasiswa Psikologi, Praktisi SDM, Psikolog, Guru, Dosen, Praktisi NLP, Hypnoterapis, juga para Orang Tua yang ingin mendapatkan pembelajaran baik teori maupun praktik.</p>
+						<h3 class="title">Apa itu PsikologAnda?</h3>
+						<p class="m-0">PsikologAnda adalah lembaga yang bergerak di bidang jasa training, coaching, dan consulting dalam bidang psikologi.<br>Berdiri sejak tahun 2014, Alhamdulillah PsikologAnda telah membantu banyak orang dalam menyelesaikan permasalahan tentang kehidupan keluarga, karir, dan bisnis. Dengan para mentor yang berpengalaman di bidangnya menjadikan PsikologAnda dipercaya menjadi media tempat belajar para Mahasiswa Psikologi, Praktisi SDM, Psikolog, Guru, Dosen, Praktisi NLP, Hypnoterapis, juga para Orang Tua yang ingin mendapatkan pembelajaran baik teori maupun praktik.</p>
 					</div>
 				</div>
 			</div>
@@ -154,7 +154,7 @@
 			<div class="col-12 col-lg-3 d-flex" data-aos="fade-right">
 				<div class="my-auto">
 					<h2 class="title">E-Learning</h2>
-					<div class="desc">Tambah pengetahuan kamu dengan belajar ilmu psikologi melalu E-Learning dari PersonalityTalk.</div>
+					<div class="desc">Tambah pengetahuan kamu dengan belajar ilmu psikologi melalu E-Learning dari PsikologAnda.</div>
 					<a class="link-primary text-decoration-none fw-bold" href="{{ route('site.program.index', ['category' => 'e-learning']) }}">Lihat semua <i class="bi bi-arrow-right"></i></a>
 				</div>
 			</div>
@@ -235,7 +235,7 @@
 			<div class="col-12 col-lg-3 d-flex" data-aos="fade-right">
 				<div class="my-auto">
 					<h2 class="title">Workshop</h2>
-					<div class="desc">Tingkatkan keterampilan praktis kamu dengan mengikuti berbagai workshop yang diselenggarakan oleh PersonalityTalk.</div> <a class="link-primary text-decoration-none fw-bold" href="{{ route('site.program.index', ['category' => 'workshop']) }}">Lihat semua <i class="bi bi-arrow-right"></i></a>
+					<div class="desc">Tingkatkan keterampilan praktis kamu dengan mengikuti berbagai workshop yang diselenggarakan oleh PsikologAnda.</div> <a class="link-primary text-decoration-none fw-bold" href="{{ route('site.program.index', ['category' => 'workshop']) }}">Lihat semua <i class="bi bi-arrow-right"></i></a>
 				</div>
 			</div>
 			<div class="col-12 col-lg-9">
@@ -319,7 +319,7 @@
 			<div class="col-12 col-lg-3 d-flex" data-aos="fade-right">
 				<div class="my-auto">
 					<h2 class="title">Karir</h2>
-					<div class="desc">Temukan karir kamu dari mitra PersonalityTalk.</div> <a class="link-primary text-decoration-none fw-bold" href="/karir">Lihat semua <i class="bi bi-arrow-right"></i></a>
+					<div class="desc">Temukan karir kamu dari mitra PsikologAnda.</div> <a class="link-primary text-decoration-none fw-bold" href="/karir">Lihat semua <i class="bi bi-arrow-right"></i></a>
 				</div>
 			</div>
 			<div class="col-12 col-lg-9">
@@ -359,7 +359,7 @@
 			<div class="col-12 my-auto">
 				<div class="media d-block text-center text-lg-start d-lg-flex justify-content-between align-items-center">
 					<img width="80" class="me-3 mb-3 mb-lg-0" src="{{asset('assets/images/category/meditation.svg')}}">
-					<div class="text-center">Apakah Anda Praktisi SDM, Psikolog, Guru, Dosen, Praktisi NLP, Hypnoterapis, atau Mahasiswa Psikologi?<br>PersonalityTalk adalah solusi alternatif pembelajaran praktis seputar ilmu psikologi dan terapannya<br> untuk membantu Anda dalam hal pengembangan diri, komunikasi, karir, dan keluarga.
+					<div class="text-center">Apakah Anda Praktisi SDM, Psikolog, Guru, Dosen, Praktisi NLP, Hypnoterapis, atau Mahasiswa Psikologi?<br>PsikologAnda adalah solusi alternatif pembelajaran praktis seputar ilmu psikologi dan terapannya<br> untuk membantu Anda dalam hal pengembangan diri, komunikasi, karir, dan keluarga.
 					</div>
 					<a href="/register" class="btn btn-primary mt-3 rounded-1">Daftar Sekarang</a>
 				</div>
