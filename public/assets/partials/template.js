@@ -5,7 +5,7 @@ $(function () {
     bar += '<header>';
         bar += '<nav class="navbar navbar-expand-lg navbar-light py-2 fixed-top bg-white shadow-sm">';
             bar += '<div class="container">';
-                bar += '<a class="navbar-brand mb-0" href="https://psikologanda.com"><img src="https://psikologanda.com/assets/images/logo/1617422635-logo.png" alt="Logo PersonalityTalk">'; bar += '</a>';
+                bar += '<a class="navbar-brand mb-0" href="https://psikologanda.com"><img src="https://psikologanda.com/assets/images/logo/2023-07-03-10-38-48.png" alt="Logo PsikologAnda">'; bar += '</a>';
                 bar += '<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>';
                 bar += '<div class="collapse navbar-collapse" id="navbarResponsive">';
                     bar += '<div class="header-right ms-auto">';
