@@ -137,7 +137,7 @@
 			<div class="col-12 my-auto">
 				<div class="media d-block d-lg-flex align-items-center text-center text-lg-start">
 					<div class="p-3 rounded-2 bg-primary me-3 mb-3 mb-lg-0">
-						<img width="100" src="{{asset('assets/images/logo/1598935068-icon.png')}}" style="filter: brightness(0) invert(1);">
+						<img width="100" src="{{asset('assets/images/logo/new_log.png')}}" >
 					</div>
 					<div class="media-body">
 						<h3 class="title">Apa itu PsikologAnda?</h3>
@@ -148,7 +148,200 @@
 		</div>
 	</div>
 </section>
-<section id="e-learning">
+<section>
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-12 my-auto">
+				<div class="card border-0">
+					<img src="{{asset('assets/images/ilustrasi/person_2.png')}}" >
+				</div>
+			</div>
+			<div class="col-4">
+				<a href="/register" class="btn btn-daf mt-4 rounded-1" style="font-size:calc(0.8vw + 1vh);width:380px"><b>Daftar Sekarang</b></a>
+			</div>
+		</div>
+	</div>
+</section>
+<section>
+	<div class="container mt-5">
+		<div class="row gy-4">
+			<div class="col-lg-6 col-12">
+				<div class="card bg-primary rounded-2">
+					<div class="row p-3">
+						<div class="col-6">
+							<h2 class="title text-white"><b>E-Learning</b></h2>
+						</div>
+						<div class="col-6">
+							<a href="{{ route('site.program.index', ['category' => 'e-learning']) }}" type="button" class="btn butt"> <b>Lihat Semua...</b></a>
+						</div>
+						<div class="p-4">
+							<div class="card p-2 rounded-3">
+								<div class="col-12">
+									<div class="py-4">
+										<div class="sl-course sl-card card-view2" data-count="">
+											@foreach($program_elearning as $data)
+											<div>
+												<div class="card border-0 rounded-3 shadow">
+													<a href="/program/{{ $data->program_permalink }}">
+														<div class="position-relative">
+															<div class="img-wrapper">
+																<img src="{{ image('assets/images/program/'.$data->program_gambar, 'program') }}" class="img-fluid" style="border-top-left-radius: 20px;border-top-right-radius:20px" alt="">
+															</div>
+														</div>
+													</a>
+													<div class="card-body">
+														<a class="title text-decoration-none text-body fw-bold" href="/program/{{ $data->program_permalink }}">
+															<div class="col-12"><p class="text-truncate">{{ $data->program_title }}</p></div>
+														</a>
+														<p style="font-size: 14px" class="d-none d-md-block">{{ substr(strip_tags(html_entity_decode($data->konten)),0,60).'...' }} <br>
+															<a class="link-primary text-decoration-none fw-bold" href="/program/{{ $data->program_permalink }}">Selengkapnya <i class="bi bi-arrow-right"></i></a>
+														</p>
+													</div>
+												</div>
+											</div>
+											@endforeach
+										</div>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>		
+				</div>
+			</div>
+			<div class="col-lg-6 col-12">
+				<div class="card bg-primary rounded-2">
+					<div class="row p-3">
+						<div class="col-6">
+							<h2 class="title text-white"><b>Online-Course</b></h2>
+						</div>
+						<div class="col-6">
+							<a href="{{ route('site.program.index', ['category' => 'online-course']) }}" type="button" class="btn butt"> <b>Lihat Semua...</b></a>
+						</div>
+						<div class="p-4">
+							<div class="card p-2 rounded-3">
+								<div class="col-12">
+									<div class="py-4">
+										<div class="sl-course sl-card card-view2" data-count="">
+											@foreach($program_course as $data)
+											<div>
+												<div class="card border-0 rounded-3 shadow">
+													<a href="/program/{{ $data->program_permalink }}">
+														<div class="position-relative">
+															<div class="img-wrapper">
+																<img src="{{ image('assets/images/program/'.$data->program_gambar, 'program') }}" class="img-fluid" style="border-top-left-radius: 20px;border-top-right-radius:20px" alt="">
+															</div>
+														</div>
+													</a>
+													<div class="card-body">
+														<a class="title text-decoration-none text-body fw-bold" href="/program/{{ $data->program_permalink }}">
+															<div class="col-12"><p class="text-truncate">{{ $data->program_title }}</p></div>
+														</a>
+														<p style="font-size: 14px" class="d-none d-md-block">{{ substr(strip_tags(html_entity_decode($data->konten)),0,60).'...' }} <br>
+															<a class="link-primary text-decoration-none fw-bold" href="/program/{{ $data->program_permalink }}">Selengkapnya <i class="bi bi-arrow-right"></i></a></p>
+													</div>
+												</div>
+											</div>
+											@endforeach
+										</div>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>		
+				</div>
+			</div>
+			<div class="col-lg-6 col-12">
+				<div class="card bg-primary rounded-2">
+					<div class="row p-3">
+						<div class="col-6">
+							<h2 class="title text-white"><b>Workshop</b></h2>
+						</div>
+						<div class="col-6">
+							<a href="{{ route('site.program.index', ['category' => 'workshop']) }}" type="button" class="btn butt"> <b>Lihat Semua...</b></a>
+						</div>
+						<div class="p-4">
+							<div class="card p-2 rounded-3">
+								<div class="col-12">
+									<div class="py-4">
+										<div class="sl-course sl-card card-view2" data-count="">
+											@foreach($program_workshop as $data)
+											<div>
+												<div class="card border-0 rounded-3 shadow">
+													<a href="/program/{{ $data->program_permalink }}">
+														<div class="position-relative">
+															<div class="img-wrapper">
+																<img src="{{ image('assets/images/program/'.$data->program_gambar, 'program') }}" class="img-fluid" style="border-top-left-radius: 20px;border-top-right-radius:20px" alt="">
+															</div>
+														</div>
+													</a>
+													<div class="card-body">
+														<a class="title text-decoration-none text-body fw-bold" href="/program/{{ $data->program_permalink }}">
+															<div class="col-12"><p class="text-truncate">{{ $data->program_title }}</p></div>
+														</a>
+														<p style="font-size:14px" class="d-none d-md-block">{{ substr(strip_tags(html_entity_decode($data->konten)),0,60).'...' }} <br>
+															<a class="link-primary text-decoration-none fw-bold" href="/program/{{ $data->program_permalink }}">Selengkapnya <i class="bi bi-arrow-right"></i></a>
+														</p>
+													</div>
+												</div>
+											</div>
+											@endforeach
+										</div>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>		
+				</div>
+			</div>
+			<div class="col-lg-6 col-12">
+				<div class="card bg-primary rounded-2">
+					<div class="row p-3">
+						<div class="col-6">
+							<h2 class="title text-white"><b>Sertifikasi</b></h2>
+						</div>
+						<div class="col-6">
+							<a href="{{ route('site.program.index', ['category' => 'sertifikasi']) }}" type="button" class="btn butt"> <b>Lihat Semua...</b></a>
+						</div>
+						<div class="p-4">
+							<div class="card p-2 rounded-3">
+								<div class="col-12">
+									<div class="py-4">
+										<div class="sl-course sl-card card-view2" data-count="">
+											@foreach($program_sertifikasi as $data)
+											<div>
+												<div class="card border-0 rounded-3 shadow">
+													<a href="/program/{{ $data->program_permalink }}">
+														<div class="position-relative">
+															<div class="img-wrapper">
+																<img src="{{ image('assets/images/program/'.$data->program_gambar, 'program') }}" class="img-fluid" style="border-top-left-radius: 20px;border-top-right-radius:20px" alt="">
+															</div>
+														</div>
+													</a>
+													<div class="card-body">
+														<a class="title text-decoration-none text-body fw-bold" href="/program/{{ $data->program_permalink }}">
+															<div class="col-12"><p class="text-truncate">{{ $data->program_title }}</p></div>
+														</a>
+														<p style="font-size: 14px" class="py-4 d-none d-md-block">{{ substr(strip_tags(html_entity_decode($data->konten)),0,60).'...' }} <br>
+															<a class="link-primary text-decoration-none fw-bold" href="/program/{{ $data->program_permalink }}">Selengkapnya <i class="bi bi-arrow-right"></i></a>
+														</p>
+													</div>
+												</div>
+											</div>
+											@endforeach
+										</div>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>		
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+</section>
+{{-- <section id="e-learning">
 	<div class="container section-block">
 		<div class="row pl-0">
 			<div class="col-12 col-lg-3 d-flex" data-aos="fade-right">
@@ -187,14 +380,15 @@
 			</div>
 		</div>
 	</div>
-</section>
-<section id="online-course">
+</section> --}}
+{{-- <section id="online-course">
 	<div class="container section-block">
 		<div class="row pl-0">
 			<div class="col-12 col-lg-3 d-flex" data-aos="fade-right">
 				<div class="my-auto">
 					<h2 class="title">Online Course</h2>
-					<div class="desc">Tingkatkan keterampilan profesional kamu dalam bidang psikologi dan SDM dengan mengikuti E-Course.</div> <a class="link-primary text-decoration-none fw-bold" href="{{ route('site.program.index', ['category' => 'online-course']) }}">Lihat semua <i class="bi bi-arrow-right"></i></a>
+					<div class="desc">Tingkatkan keterampilan profesional kamu dalam bidang psikologi dan SDM dengan mengikuti E-Course.</div> 
+					<a class="link-primary text-decoration-none fw-bold" href="{{ route('site.program.index', ['category' => 'online-course']) }}">Lihat semua <i class="bi bi-arrow-right"></i></a>
 				</div>
 			</div>
 			<div class="col-12 col-lg-9">
@@ -228,14 +422,15 @@
 			</div>
 		</div>
 	</div>
-</section>
-<section id="workshop">
+</section> --}}
+{{-- <section id="workshop">
 	<div class="container section-block">
 		<div class="row pl-0">
 			<div class="col-12 col-lg-3 d-flex" data-aos="fade-right">
 				<div class="my-auto">
 					<h2 class="title">Workshop</h2>
-					<div class="desc">Tingkatkan keterampilan praktis kamu dengan mengikuti berbagai workshop yang diselenggarakan oleh PsikologAnda.</div> <a class="link-primary text-decoration-none fw-bold" href="{{ route('site.program.index', ['category' => 'workshop']) }}">Lihat semua <i class="bi bi-arrow-right"></i></a>
+					<div class="desc">Tingkatkan keterampilan praktis kamu dengan mengikuti berbagai workshop yang diselenggarakan oleh PsikologAnda.</div> 
+					<a class="link-primary text-decoration-none fw-bold" href="{{ route('site.program.index', ['category' => 'workshop']) }}">Lihat semua <i class="bi bi-arrow-right"></i></a>
 				</div>
 			</div>
 			<div class="col-12 col-lg-9">
@@ -258,7 +453,9 @@
 									<a class="title text-decoration-none text-body fw-bold" href="/program/{{ $data->program_permalink }}">
 										<div class="col-12"><p class="text-truncate">{{ $data->program_title }}</p></div>
 									</a>
-									<p class="d-none d-md-block">{{ substr(strip_tags(html_entity_decode($data->konten)),0,100).'...' }} <br><a class="link-primary text-decoration-none fw-bold" href="/program/{{ $data->program_permalink }}">Selengkapnya <i class="bi bi-arrow-right"></i></a></p>
+									<p class="d-none d-md-block">{{ substr(strip_tags(html_entity_decode($data->konten)),0,100).'...' }} 
+										<br>
+									<a class="link-primary text-decoration-none fw-bold" href="/program/{{ $data->program_permalink }}">Selengkapnya <i class="bi bi-arrow-right"></i></a></p>
 								</div>
 							</div>
 						</div>
@@ -271,14 +468,15 @@
 			</div>
 		</div>
 	</div>
-</section>
-<section id="sertifikasi">
+</section> --}}
+{{-- <section id="sertifikasi">
 	<div class="container section-block">
 		<div class="row pl-0">
 			<div class="col-12 col-lg-3 d-flex" data-aos="fade-right">
 				<div class="my-auto">
 					<h2 class="title">Sertifikasi</h2>
-					<div class="desc">Persiapkan diri kamu untuk memenuhi kebutuhan sertifikasi bidang psikologi. Ikuti kursusnya sekarang.</div> <a class="link-primary text-decoration-none fw-bold" href="{{ route('site.program.index', ['category' => 'sertifikasi']) }}">Lihat semua <i class="bi bi-arrow-right"></i></a>
+					<div class="desc">Persiapkan diri kamu untuk memenuhi kebutuhan sertifikasi bidang psikologi. Ikuti kursusnya sekarang.</div>
+					 <a class="link-primary text-decoration-none fw-bold" href="{{ route('site.program.index', ['category' => 'sertifikasi']) }}">Lihat semua <i class="bi bi-arrow-right"></i></a>
 				</div>
 			</div>
 			<div class="col-12 col-lg-9">
@@ -312,7 +510,7 @@
 			</div>
 		</div>
 	</div>
-</section>
+</section> --}}
 <section id="career" class="d-none">
 	<div class="container section-block">
 		<div class="row pl-0">
@@ -354,7 +552,7 @@
 	</div>
 </section>
 
-<section id="simple-profile">
+<section id="simple-profile" >
 	<div class="container h-100 section-block">
 		<div class="row h-100">
 			<div class="col-12 my-auto">
@@ -373,7 +571,7 @@
 	</div>
 </section>
 
-<section id="partner">
+<section id="partner" >
 	<div class="container h-100 section-block">
 		<div class="row h-100">
 			<div class="col-12 text-center my-auto">
@@ -392,19 +590,25 @@
 		</div>
 	</div>
 </section>
-
-<section id="see-more" class="bg-light py-5">
-	
-	<div class="container h-100">
-		<div class="row h-100">
-			<div class="col-12 text-center my-auto">
-				<img width="80" class="mb-3" src="{{asset('assets/images/category/woman.svg')}}">
-				<h2>Mulai Belajar Sekarang</h2>
-				<div>Tunggu apa lagi, mulailah daftar disini, tontonlah video-video untuk meningkatkan pengetahuan kamu, dan baca juga e-book gratis di dalamnya.</div>
+<section class="hub" style="padding-top:200px;padding-bottom:50px">
+	<div class="container">
+		<div class="row">
+			<div class="col-12 col-md-6">
+				{{-- <img height="100px" width="auto" src="{{ asset('assets/images/ilustrasi/g_192.png') }}" alt=""> --}}
+			</div>
+			<div class="col-12 col-md-6">
+				{{-- <img width="80" class="mb-3" src="{{asset('assets/images/category/woman.svg')}}"> --}}
+				<h1>Mulai Belajar Sekarang</h1>
+				<div style="font-size:calc(1vw + 0.7vh)">Tunggu apa lagi, mulailah daftar disini, tontonlah video-video untuk meningkatkan pengetahuan kamu, dan baca juga e-book gratis di dalamnya.</div>
 				@if(Auth::guest())
-				<a href="/register" class="btn btn-primary mt-3 rounded-1">Daftar Sekarang</a>
+				<div class="row">
+					<div class="col-4">
+						<a href="/register" class="btn butt mt-3 rounded-1"><b>Daftar Sekarang</b></a>
+					</div>
+				</div>
 				@endif
 			</div>
+			
 		</div>
 	</div>
 	
@@ -433,11 +637,12 @@ $('.sl-course').slick({
     dots: !1,
     arrows: !0,
     infinite: !1,
-	slidesToShow: 3,
-	slidesToScroll: 3,
+	slidesToShow: 2,
+	slidesToScroll: 2,
 	responsive: [
 	    { breakpoint: 992, settings: { slidesToShow: 2, slidesToScroll: 2 } },
 	    { breakpoint: 768, settings: { infinite: 0, slidesToShow: 1, slidesToScroll: 1, arrows: !1 } },
+	    { breakpoint: 576, settings: { slidesToShow: 1, slidesToScroll: 1, arrows: !1 } },
 	]
 });
 	
@@ -460,5 +665,37 @@ $('#mitra').slick({
 @section('css-extra')
 <style type="text/css">
 	body{background-color: var(--white)}
+
+	.hub{
+		background-size: cover;
+		background-repeat: no-repeat;
+
+		background-position:bottom;
+		background-image: url({{ asset('assets/images/ilustrasi/g_19.png') }});
+	}
+	.butt{
+		max-width: 100%;
+		width:100%;
+		height: 80%;
+		text-align: center;
+		background-color: #FDFDFD;
+		opacity: 0.7;
+		border-radius: 20px;
+	}
+
+	.butt:hover{
+		background-color: black;
+		color:white;
+	}
+
+	.btn-daf{
+		background-color: #F58320;
+		color:black;
+	}
+
+	.btn-daf:hover{
+		background-color: black;
+		color:#F58320;
+	}
 </style>
 @endsection
