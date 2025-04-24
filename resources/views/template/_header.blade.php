@@ -6,8 +6,8 @@
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<div class="header-right ms-auto">
 					<ul class="navbar-nav align-items-lg-center n-log">
-						<li class="nav-item"><a class="nav-link {{ Request::path() == '/' ? 'active' : '' }}" href="/">Beranda</a> </li>
-						<li class="nav-item dropdown">
+						{{-- <li class="nav-item"><a class="nav-link {{ Request::path() == '/' ? 'active' : '' }}" href="/">Beranda</a> </li> --}}
+						{{-- <li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle {{ strpos(Request::url(), '/program') ? 'active' : '' }}" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
 							<div class="dropdown-menu dropdown-menu-right">
 								<a href="{{ Request::path() == '/' ? '#online-class' : route('site.program.index', ['category' => 'e-learning']) }}" class="dropdown-item {{ strpos(Request::url(), '/e-learning') ? 'active' : '' }}" type="button">E-Learning</a>
@@ -18,12 +18,12 @@
 								<a href="{{ route('site.program.index', ['category' => 'pelatihan-pendampingan']) }}" class="dropdown-item {{ strpos(Request::url(), '/pelatihan-pendampingan') ? 'active' : '' }}" type="button">Pelatihan & Pendampingan</a>
 								<a href="{{ route('site.program.index', ['category' => 'konseling-psikoterapi']) }}" class="dropdown-item {{ strpos(Request::url(), '/konseling-psikoterapi') ? 'active' : '' }}" type="button">Konseling & Psikoterapi</a>
 							</div>
-						</li>
+						</li> --}}
 						<li class="nav-item"> <a class="nav-link" href="https://karir.psikologanda.com/login" target="_blank">BK / HRD</a> </li>
-						<li class="nav-item"> <a class="nav-link {{ is_int(strpos(Request::url(), route('site.psikolog.index'))) ? 'active' : '' }}" href="{{ route('site.psikolog.index') }}">Psikolog</a> </li>
-						<li class="nav-item {{ is_int(strpos(Request::url(), route('site.artikel.index'))) ? 'active' : '' }}">
+						{{-- <li class="nav-item"> <a class="nav-link {{ is_int(strpos(Request::url(), route('site.psikolog.index'))) ? 'active' : '' }}" href="{{ route('site.psikolog.index') }}">Psikolog</a> </li> --}}
+						{{-- <li class="nav-item {{ is_int(strpos(Request::url(), route('site.artikel.index'))) ? 'active' : '' }}">
 							<a class="nav-link {{ strpos(Request::url(), '/artikel') ? 'active' : '' }}" href="/artikel{{ Session::get('ref') != null ? '?ref='.Session::get('ref') : '' }}">Artikel</a>
-						</li>
+						</li> --}}
 						<li class="nav-item"> <a class="nav-link {{ strpos(Request::url(), '/karir') ? 'active' : '' }}" href="{{ route('site.karir.index') }}">Karir</a> </li>
 						<li class="nav-item"> <a class="btn btn-outline-primary ms-0 ms-lg-2 px-3 mb-2 mb-lg-0 d-grid" href="https://tes.psikologanda.com/login" target="_blank">Tes&nbsp;Online</a></li>
 						@if(Auth::guest())

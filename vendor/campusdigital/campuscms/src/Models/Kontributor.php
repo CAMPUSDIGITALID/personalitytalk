@@ -3,6 +3,7 @@
 namespace Campusdigital\CampusCMS\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Campusdigital\CampusCMS\Models\Blog;
 
 class Kontributor extends Model
 {
@@ -35,4 +36,9 @@ class Kontributor extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    public function blog()
+    {
+        return $this->hasMany(Blog::class);
+    }
 }

@@ -16,41 +16,47 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
-        // Referral
-        referral($request->query('ref'), 'site.home');
+    // public function index(Request $request)
+    // {
+    //     // Referral
+    //     referral($request->query('ref'), 'site.home');
 
-        // Get data slider
-        $slider = Slider::where('status_slider','=',1)->orderBy('order_slider')->get();
+    //     // Get data slider
+    //     $slider = Slider::where('status_slider','=',1)->orderBy('order_slider')->get();
 
-        // Data program e-learning
-        $program_elearning = Program::join('kategori_program','program.program_kategori','=','kategori_program.id_kp')->where('kategori_program.slug','=','e-learning')->orderBy('program_at','asc')->limit(5)->get();
+    //     // Data program e-learning
+    //     $program_elearning = Program::join('kategori_program','program.program_kategori','=','kategori_program.id_kp')->where('kategori_program.slug','=','e-learning')->orderBy('program_at','asc')->limit(5)->get();
 
-        // Data program online course
-        $program_course = Program::join('kategori_program','program.program_kategori','=','kategori_program.id_kp')->where('kategori_program.slug','=','online-course')->orderBy('program_at','asc')->limit(5)->get();
+    //     // Data program online course
+    //     $program_course = Program::join('kategori_program','program.program_kategori','=','kategori_program.id_kp')->where('kategori_program.slug','=','online-course')->orderBy('program_at','asc')->limit(5)->get();
 
-        // Data program workshop
-        $program_workshop = Program::join('kategori_program','program.program_kategori','=','kategori_program.id_kp')->where('kategori_program.slug','=','workshop')->orderBy('program_at','asc')->limit(5)->get();
+    //     // Data program workshop
+    //     $program_workshop = Program::join('kategori_program','program.program_kategori','=','kategori_program.id_kp')->where('kategori_program.slug','=','workshop')->orderBy('program_at','asc')->limit(5)->get();
 
-        // Data program sertifikasi
-        $program_sertifikasi = Program::join('kategori_program','program.program_kategori','=','kategori_program.id_kp')->where('kategori_program.slug','=','sertifikasi')->orderBy('program_at','asc')->limit(5)->get();
+    //     // Data program sertifikasi
+    //     $program_sertifikasi = Program::join('kategori_program','program.program_kategori','=','kategori_program.id_kp')->where('kategori_program.slug','=','sertifikasi')->orderBy('program_at','asc')->limit(5)->get();
 
-        // Data karir
-        $karir = Karir::orderBy('karir_at','desc')->limit(5)->get();
+    //     // Data karir
+    //     $karir = Karir::orderBy('karir_at','desc')->limit(5)->get();
 		
-		// Get data mitra
-		$mitra = Mitra::all();
+	// 	// Get data mitra
+	// 	$mitra = Mitra::all();
+    //     $cek_seo = seo_setting('home');
+    //     // View
+    //     return view('front.home', [
+    //         'karir' => $karir,
+	// 		'mitra' => $mitra,
+    //         'program_elearning' => $program_elearning,
+    //         'program_course' => $program_course,
+    //         'program_workshop' => $program_workshop,
+    //         'program_sertifikasi' => $program_sertifikasi,
+	// 		'slider' => $slider,
+    //         'seo' => $cek_seo
 
-        // View
-        return view('front.home', [
-            'karir' => $karir,
-			'mitra' => $mitra,
-            'program_elearning' => $program_elearning,
-            'program_course' => $program_course,
-            'program_workshop' => $program_workshop,
-            'program_sertifikasi' => $program_sertifikasi,
-			'slider' => $slider,
-		]);
+	// 	]);
+    // }
+    public function index()
+    {
+        return redirect()->route('auth.login');
     }
 }

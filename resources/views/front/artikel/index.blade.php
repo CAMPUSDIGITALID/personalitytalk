@@ -1,6 +1,8 @@
 @extends('template.main')
 
-@section('title', 'Artikel | ')
+@section('title', $seo->meta_title)
+@section('keywords', $seo->meta_keyword)
+@section('description', $seo->meta_description)
 
 @section('content')
 

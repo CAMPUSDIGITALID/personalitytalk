@@ -40,7 +40,7 @@ Route::get('/karir', 'KarirController@index')->name('site.karir.index');
 Route::get('/karir/{permalink}', 'KarirController@detail')->name('site.karir.detail');
 
 // Psikolog
-Route::get('/psikolog', 'PsikologController@index')->name('site.psikolog.index');
+// Route::get('/psikolog', 'PsikologController@index')->name('site.psikolog.index');
 
 // Halaman
 Route::get('/{permalink}', 'HalamanController@detail')->name('site.halaman.detail');

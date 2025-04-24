@@ -3,15 +3,18 @@
 namespace Campusdigital\CampusCMS\Http\Controllers;
 
 use Auth;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+use Exception;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
+use Campusdigital\CampusCMS\Models\Tag;
 use Campusdigital\CampusCMS\Models\Blog;
-use Campusdigital\CampusCMS\Models\KategoriArtikel;
+use Illuminate\Support\Facades\Validator;
 use Campusdigital\CampusCMS\Models\Komentar;
 use Campusdigital\CampusCMS\Models\Kontributor;
-use Campusdigital\CampusCMS\Models\Tag;
+use Campusdigital\CampusCMS\Models\KategoriArtikel;
+use Campusdigital\CampusCMS\Services\SeoPageService;
 
 class BlogController extends Controller
 {
@@ -49,10 +52,11 @@ class BlogController extends Controller
 
         // Kontributor
         $kontributor = Kontributor::where('id_kontributor','>',0)->orderBy('kontributor','asc')->get();
-
+        $files = collect(['blog']);
         // View
         return view('faturcms::admin.blog.create', [
             'kategori' => $kategori,
+            'files' => $files,
             'kontributor' => $kontributor,
         ]);
     }
@@ -63,25 +67,56 @@ class BlogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, SeoPageService $seoPageService)
     {
-        // Validasi
         $validator = Validator::make($request->all(), [
             'judul_artikel' => 'required|max:255',
             'kategori' => 'required',
+            'gambar' => [
+                'nullable',
+                function ($attribute, $value, $fail) use ($request) {
+                    // Jika file upload
+                    if ($request->hasFile('gambar')) {
+                        $file = $request->file('gambar');
+                        $ext = strtolower($file->getClientOriginalExtension());
+                        if (!in_array($ext, ['jpeg', 'jpg', 'png', 'webp'])) {
+                            return $fail('Gambar harus berformat jpeg, jpg, png, atau webp.');
+                        }
+                        if (!$file->isValid()) {
+                            return $fail('Upload gambar tidak valid.');
+                        }
+                    }
+                    // Jika base64
+                    elseif (is_string($value) && preg_match('/^data:image\/(jpeg|jpg|png|webp);base64,/', $value)) {
+                        $image = explode(',', $value)[1];
+                        $decoded = base64_decode($image, true);
+                        if (!$decoded || !@imagecreatefromstring($decoded)) {
+                            return $fail('Data gambar base64 tidak valid.');
+                        }
+                    }
+                    // Bukan file dan bukan base64
+                    elseif (!empty($value)) {
+                        return $fail('Format gambar tidak dikenali.');
+                    }
+                },
+            ],
+            'konten' => 'required|string',
         ], array_validation_messages());
         
+        
         // Mengecek jika ada error
-        if($validator->fails()){
-            // Kembali ke halaman sebelumnya dan menampilkan pesan error
+        if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->errors())->withInput($request->only([
                 'judul_artikel',
                 'kategori',
+                'gambar',
+                'konten'
             ]));
-        }
-        // Jika tidak ada error
-        else{
-            // Menambah data
+        }      
+        DB::beginTransaction();
+        
+        try {
+            // Menambah data blog
             $blog = new Blog;
             $blog->blog_title = $request->judul_artikel;
             $blog->blog_permalink = slugify($request->judul_artikel, 'blog', 'blog_permalink', 'id_blog', null);
@@ -93,10 +128,27 @@ class BlogController extends Controller
             $blog->author = Auth::user()->id_user;
             $blog->blog_at = date('Y-m-d H:i:s');
             $blog->save();
+        
+            // Proses penyimpanan SEO
+            $result = $seoPageService->seoStore($request->all());
+            if (!$result['status']) {
+                // Rollback jika SEO gagal
+                DB::rollBack();
+                return redirect()->back()->withErrors($result['errors'])->withInput();
+            }
+            $blog->seo_page_id = $result['data']->id;
+            $blog->save();
+        
+            // Commit jika semua berhasil
+            DB::commit();
+        
+            return redirect()->route('admin.blog.index')->with(['message' => 'Berhasil menambah data.']);
+        
+        } catch (Exception $e) {
+            // Rollback jika terjadi exception
+            DB::rollBack();
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()])->withInput();
         }
-
-        // Redirect
-        return redirect()->route('admin.blog.index')->with(['message' => 'Berhasil menambah data.']);
     }
 
     /**
@@ -111,17 +163,20 @@ class BlogController extends Controller
         has_access(generate_method(__METHOD__), Auth::user()->role);
 
     	// Data blog
-    	$blog = Blog::findOrFail($id);
+    	$blog = Blog::with('seoPage')->where('id_blog',$id)->first();
 
         // Kategori
         $kategori = KategoriArtikel::orderBy('id_ka','desc')->get();
 
         // Kontributor
         $kontributor = Kontributor::where('id_kontributor','>',0)->orderBy('kontributor','asc')->get();
+        $files = $blog->seoPage;
+        // dd($files);
 
         // View
         return view('faturcms::admin.blog.edit', [
         	'blog' => $blog,
+            'files' => $files,
             'kategori' => $kategori,
         	'kontributor' => $kontributor,
         ]);
@@ -133,12 +188,41 @@ class BlogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, SeoPageService $seoPageService)
     {
         // Validasi
         $validator = Validator::make($request->all(), [
             'judul_artikel' => 'required|max:255',
             'kategori' => 'required',
+            'gambar' => [
+                'nullable',
+                function ($attribute, $value, $fail) use ($request) {
+                    // Jika file upload
+                    if ($request->hasFile('gambar')) {
+                        $file = $request->file('gambar');
+                        $ext = strtolower($file->getClientOriginalExtension());
+                        if (!in_array($ext, ['jpeg', 'jpg', 'png', 'webp'])) {
+                            return $fail('Gambar harus berformat jpeg, jpg, png, atau webp.');
+                        }
+                        if (!$file->isValid()) {
+                            return $fail('Upload gambar tidak valid.');
+                        }
+                    }
+                    // Jika base64
+                    elseif (is_string($value) && preg_match('/^data:image\/(jpeg|jpg|png|webp);base64,/', $value)) {
+                        $image = explode(',', $value)[1];
+                        $decoded = base64_decode($image, true);
+                        if (!$decoded || !@imagecreatefromstring($decoded)) {
+                            return $fail('Data gambar base64 tidak valid.');
+                        }
+                    }
+                    // Bukan file dan bukan base64
+                    elseif (!empty($value)) {
+                        return $fail('Format gambar tidak dikenali.');
+                    }
+                },
+            ],
+            'konten' => 'required|string',
         ], array_validation_messages());
         
         // Mengecek jika ada error
@@ -147,24 +231,53 @@ class BlogController extends Controller
             return redirect()->back()->withErrors($validator->errors())->withInput($request->only([
                 'judul_artikel',
                 'kategori',
+                'gambar',
+                'konten'
             ]));
         }
         // Jika tidak ada error
         else{
-            // Mengupdate data
-            $blog = Blog::find($request->id);
-            $blog->blog_title = $request->judul_artikel;
-            $blog->blog_permalink = slugify($request->judul_artikel, 'blog', 'blog_permalink', 'id_blog', $request->id);
-            $blog->blog_gambar = generate_image_name("assets/images/blog/", $request->gambar, $request->gambar_url) != '' ? generate_image_name("assets/images/blog/", $request->gambar, $request->gambar_url) : $blog->blog_gambar;
-            $blog->blog_kategori = $request->kategori;
-            $blog->blog_tag = generate_tag_by_name($request->get('tag'));
-            $blog->blog_kontributor = $request->kontributor != null ? $request->kontributor : 0;
-            $blog->konten = htmlentities(upload_quill_image($request->konten, 'assets/images/konten-blog/'));
-            $blog->save();
+
+            DB::beginTransaction();
+        
+            try {
+                 // Mengupdate data
+                $blog = Blog::find($request->id);
+                $blog->blog_title = $request->judul_artikel;
+                $blog->blog_permalink = slugify($request->judul_artikel, 'blog', 'blog_permalink', 'id_blog', $request->id);
+                $blog->blog_gambar = generate_image_name("assets/images/blog/", $request->gambar, $request->gambar_url) != '' ? generate_image_name("assets/images/blog/", $request->gambar, $request->gambar_url) : $blog->blog_gambar;
+                $blog->blog_kategori = $request->kategori;
+                $blog->blog_tag = generate_tag_by_name($request->get('tag'));
+                $blog->blog_kontributor = $request->kontributor != null ? $request->kontributor : 0;
+                $blog->konten = htmlentities(upload_quill_image($request->konten, 'assets/images/konten-blog/'));
+                $blog->save();
+            
+                // Proses penyimpanan SEO
+                $result = $seoPageService->seoStore($request->all());
+                if (!$result['status']) {
+                    // Rollback jika SEO gagal
+                    DB::rollBack();
+                    return redirect()->back()->withErrors($result['errors'])->withInput();
+                }
+                $blog->seo_page_id = $result['data']->id;
+                $blog->save();
+            
+                // Commit jika semua berhasil
+                DB::commit();
+            
+                return redirect()->route('admin.blog.edit', ['id' => $request->id])->with(['message' => 'Berhasil mengupdate data.']);
+            
+            } catch (Exception $e) {
+                // Rollback jika terjadi exception
+                DB::rollBack();
+                return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()])->withInput();
+            }
+
+
+           
         }
 
         // Redirect
-        return redirect()->route('admin.blog.edit', ['id' => $request->id])->with(['message' => 'Berhasil mengupdate data.']);
     }
 
     /**

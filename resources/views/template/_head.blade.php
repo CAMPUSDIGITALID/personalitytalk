@@ -1,20 +1,21 @@
-	<title>@yield('title') {{ setting('site.name') }} &#8211; {{ setting('site.tagline') }}</title>
+	<title>@yield('title')</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=0"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	<meta name="robots" content="index, follow"/>
 	<meta name="revisit-after" content="1 days"/>
 	<meta name="title" content="{{ setting('site.name') }}"/>
-	<meta name="description" content="{{ setting('site.name') }}"/>
-	<meta name="keywords" content="{{ setting('site.name') }}"/>
+	<meta name="description" content="@yield('description')"/>
+	<meta name="keywords" content="@yield('keywords')"/>
 	<meta name="author" content="{{ setting('site.name') }}"/>
 	<meta itemProp="name" content="{{ setting('site.name') }}"/>
 	<meta itemprop="url" content="{{ URL::to('/') }}" />
 	<meta itemProp="description" content="{{ setting('site.name') }}"/>
 	<meta itemProp="image" content="{{ asset('assets/images/logo/'.setting('site.icon')) }}"/>
 	<meta property="og:site_name" content="{{ setting('site.name') }}" />
+	<meta property="og:keywords" content="{{ setting('site.keywords') }}" />
 	<meta property="og:title" content="{{ setting('site.name') }}" />
-	<meta property="og:description" content="{{ setting('site.name') }}"/>
+	<meta property="og:description" content="{{ setting('site.description') }}"/>
 	<meta property="og:type" content="website" />
 	<meta property="og:image" content="{{ asset('assets/images/logo/'.setting('site.icon')) }}" />
 	<meta property="og:url" content="{{ URL::to('/') }}" />

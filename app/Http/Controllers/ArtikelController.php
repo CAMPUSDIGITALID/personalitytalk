@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Http\Request;
+use Campusdigital\CampusCMS\Models\Tag;
 use Campusdigital\CampusCMS\Models\Blog;
-use Campusdigital\CampusCMS\Models\KategoriArtikel;
+use Campusdigital\CampusCMS\Models\SeoPage;
 use Campusdigital\CampusCMS\Models\Komentar;
 use Campusdigital\CampusCMS\Models\Kontributor;
-use Campusdigital\CampusCMS\Models\Tag;
+use Campusdigital\CampusCMS\Models\KategoriArtikel;
 
 class ArtikelController extends Controller
-{		
+{
     /**
      * Menampilkan semua artikel
      *
@@ -22,9 +23,10 @@ class ArtikelController extends Controller
     {
         // Referral
         referral($request->query('ref'), 'site.artikel.index', ['page' => $request->query('page')]);
-		
-		// Data artikel
-        $artikel = Blog::join('users','blog.author','=','users.id_user')->join('kontributor','blog.blog_kontributor','=','kontributor.id_kontributor')->orderBy('blog_at','desc')->paginate(12);
+
+        $cek_seo = seo_setting('artikel/homepage');
+        // Data artikel
+        $artikel = Blog::join('users', 'blog.author', '=', 'users.id_user')->join('kontributor', 'blog.blog_kontributor', '=', 'kontributor.id_kontributor')->orderBy('blog_at', 'desc')->paginate(12);
 
         // Data kategori artikel
         $kategori = KategoriArtikel::limit(12)->get();
@@ -33,7 +35,8 @@ class ArtikelController extends Controller
         return view('front.artikel.index', [
             'artikel' => $artikel,
             'kategori' => $kategori,
-		]);
+            'seo' => $cek_seo
+        ]);
     }
 
     /**
@@ -49,29 +52,30 @@ class ArtikelController extends Controller
         referral($request->query('ref'), 'site.artikel.detail', ['permalink' => $permalink]);
 
         // Data artikel
-        $blog = Blog::join('users','blog.author','=','users.id_user')->join('kontributor','blog.blog_kontributor','=','kontributor.id_kontributor')->where('blog_permalink','=',$permalink)->firstOrFail();
-
+        // $blog = Blog::join('users', 'blog.author', '=', 'users.id_user')->join('kontributor', 'blog.blog_kontributor', '=', 'kontributor.id_kontributor')->where('blog_permalink', '=', $permalink)->firstOrFail();
+        $blog = Blog::with(['kontributor','user','seoPage'])->where('blog_permalink', '=', $permalink)->firstOrFail();
+        dd($blog);
         // Tag artikel
         $blog_tags = array();
-        if($blog->blog_tag != ''){
+        if ($blog->blog_tag != '') {
             $explode = explode(",", $blog->blog_tag);
-            foreach($explode as $id){
+            foreach ($explode as $id) {
                 $tag = Tag::find($id);
                 array_push($blog_tags, $tag);
             }
         }
 
         // Komentar
-        $blog_komentar = Komentar::join('users','komentar.id_user','=','users.id_user')->where('id_artikel','=',$blog->id_blog)->where('komentar_parent','=',0)->orderBy('komentar_at','desc')->get();
+        $blog_komentar = Komentar::join('users', 'komentar.id_user', '=', 'users.id_user')->where('id_artikel', '=', $blog->id_blog)->where('komentar_parent', '=', 0)->orderBy('komentar_at', 'desc')->get();
 
         // Kategori
-        $kategori = KategoriArtikel::orderBy('id_ka','desc')->get();
+        $kategori = KategoriArtikel::orderBy('id_ka', 'desc')->get();
 
         // Tag
         $tag = Tag::limit(10)->get();
 
         // Artikel terbaru
-        $recents = Blog::join('users','blog.author','=','users.id_user')->orderBy('blog_at','desc')->limit(6)->get();
+        $recents = Blog::join('users', 'blog.author', '=', 'users.id_user')->orderBy('blog_at', 'desc')->limit(6)->get();
 
         // View
         return view('front.artikel.detail', [
@@ -97,18 +101,20 @@ class ArtikelController extends Controller
         referral($request->query('ref'), 'site.artikel.by-category', ['permalink' => $category, 'page' => $request->query('page')]);
 
         // Get kategori
-        $kategori = KategoriArtikel::where('slug','=',$category)->firstOrFail();
+        $kategori = KategoriArtikel::where('slug', '=', $category)->firstOrFail();
 
         // Data artikel
-        $artikel = Blog::join('users','blog.author','=','users.id_user')->join('kontributor','blog.blog_kontributor','=','kontributor.id_kontributor')->where('blog_kategori','=',$kategori->id_ka)->orderBy('blog_at','desc')->paginate(12);
+        $artikel = Blog::join('users', 'blog.author', '=', 'users.id_user')->join('kontributor', 'blog.blog_kontributor', '=', 'kontributor.id_kontributor')->where('blog_kategori', '=', $kategori->id_ka)->orderBy('blog_at', 'desc')->paginate(12);
 
         $kategori_head = KategoriArtikel::limit(12)->get();
 
+        $cek_seo = seo_setting('artikel/by-category');
         // View
         return view('front.artikel.by-category', [
             'kategori' => $kategori,
             'artikel' => $artikel,
             'kategori_head' => $kategori_head,
+            'seo' => $cek_seo
         ]);
     }
 
@@ -125,15 +131,17 @@ class ArtikelController extends Controller
         referral($request->query('ref'), 'site.artikel.by-author', ['username' => $author, 'page' => $request->query('page')]);
 
         // Get user
-        $user = User::where('username','=',$author)->firstOrFail();
+        $user = User::where('username', '=', $author)->firstOrFail();
 
         // Data artikel
-        $artikel = Blog::join('users','blog.author','=','users.id_user')->join('kontributor','blog.blog_kontributor','=','kontributor.id_kontributor')->where('author','=',$user->id_user)->where('blog_kontributor','=',0)->orderBy('blog_at','desc')->paginate(12);
+        $artikel = Blog::join('users', 'blog.author', '=', 'users.id_user')->join('kontributor', 'blog.blog_kontributor', '=', 'kontributor.id_kontributor')->where('author', '=', $user->id_user)->where('blog_kontributor', '=', 0)->orderBy('blog_at', 'desc')->paginate(12);
 
+        $cek_seo = seo_setting('artikel/by-author');
         // View
         return view('front.artikel.by-author', [
             'user' => $user,
             'artikel' => $artikel,
+            'seo' => $cek_seo
         ]);
     }
 
@@ -150,15 +158,17 @@ class ArtikelController extends Controller
         referral($request->query('ref'), 'site.artikel.by-contributor', ['username' => $contributor, 'page' => $request->query('page')]);
 
         // Get kontributor
-        $user = Kontributor::where('slug','=',$contributor)->firstOrFail();
+        $user = Kontributor::where('slug', '=', $contributor)->firstOrFail();
 
         // Data artikel
-        $artikel = Blog::join('users','blog.author','=','users.id_user')->join('kontributor','blog.blog_kontributor','=','kontributor.id_kontributor')->where('blog_kontributor','=',$user->id_kontributor)->orderBy('blog_at','desc')->paginate(12);
+        $artikel = Blog::join('users', 'blog.author', '=', 'users.id_user')->join('kontributor', 'blog.blog_kontributor', '=', 'kontributor.id_kontributor')->where('blog_kontributor', '=', $user->id_kontributor)->orderBy('blog_at', 'desc')->paginate(12);
 
+        $cek_seo = seo_setting('artikel/by-contributor');
         // View
         return view('front.artikel.by-contributor', [
             'user' => $user,
             'artikel' => $artikel,
+            'seo' => $cek_seo
         ]);
     }
 
@@ -175,14 +185,16 @@ class ArtikelController extends Controller
         $q = $request->query('q');
 
         // Referral
-        referral($request->query('ref'), 'site.artikel.search', ['q='.$q]);
+        referral($request->query('ref'), 'site.artikel.search', ['q=' . $q]);
 
         // Result Article
-        $artikel = Blog::join('users','blog.author','=','users.id_user')->join('kontributor','blog.blog_kontributor','=','kontributor.id_kontributor')->orderBy('blog_at','desc')->where('blog_title','like','%'.$q.'%')->orWhere('konten','like','%'.$q.'%')->orWhere('blog_kategori','like','%'.$q.'%')->paginate(12);
+        $artikel = Blog::join('users', 'blog.author', '=', 'users.id_user')->join('kontributor', 'blog.blog_kontributor', '=', 'kontributor.id_kontributor')->orderBy('blog_at', 'desc')->where('blog_title', 'like', '%' . $q . '%')->orWhere('konten', 'like', '%' . $q . '%')->orWhere('blog_kategori', 'like', '%' . $q . '%')->paginate(12);
 
+        $cek_seo = seo_setting('artikel/search');
         // View
         return view('front.artikel.search', [
             'artikel' => $artikel,
+            'seo' => $cek_seo
         ]);
     }
 

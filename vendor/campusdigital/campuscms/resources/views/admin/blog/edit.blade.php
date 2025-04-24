@@ -65,6 +65,9 @@
                                 <img src="{{ image('assets/images/blog/'.$blog->blog_gambar, 'blog') }}" id="img-file" class="mt-2 img-thumbnail {{ $blog->blog_gambar != '' ? '' : 'd-none' }}" style="max-height: 150px">
                                 <input type="hidden" name="gambar">
                                 <input type="hidden" name="gambar_url">
+                                @if($errors->has('gambar'))
+                                    <div class="small text-danger mt-1">{{ ucfirst($errors->first('gambar')) }}</div>
+                                @endif
                             </div>
                         </div>
                         <div class="form-group row">
@@ -101,8 +104,34 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label"></label>
-                            <div class="col-md-10">
+                            <div class="col-12">
+                                <div id="pageContent">
+                                    <!-- Tempat form meta ditampilkan -->
+                                </div>
+                                <div class="meta">
+                                    <h4>Default Dari Setting : </h4>
+                                    <div class="table-responsive">
+                                        <table class="table text-muted">
+                                            <tr>
+                                                <td>Meta Title | tagline</td>
+                                                <td>| {{ setting('site.name') }} - {{ setting('site.tagline') }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Meta Keyword</td>
+                                                <td>{{ setting('site.keywords') }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Meta Description</td>
+                                                <td>{{ setting('site.description') }}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            {{-- <label class="col-md-2 col-form-label"></label> --}}
+                            <div class="col-12">
                                 <button type="submit" class="btn btn-theme-1"><i class="fa fa-save mr-2"></i>Simpan</button>
                             </div>
                         </div>
@@ -130,6 +159,10 @@
 
 @include('faturcms::template.admin._js-tagsinput')
 
+@include('faturcms::template.admin._seo',[
+    'files' => [$files]
+])
+
 <script type="text/javascript">
     // Quill
     generate_quill("#editor");
@@ -144,6 +177,8 @@
         $("textarea[name=konten]").text(html);
         $("#form").submit();
     });
+
+    
 </script>
 
 @endsection

@@ -1,5 +1,7 @@
 @extends('template.main')
-
+@section('title', $seo->meta_title)
+@section('keywords', $seo->meta_keyword)
+@section('description', $seo->meta_description)
 @section('content')
 
 <section id="main-image">
@@ -7,7 +9,7 @@
 		<div class="sl-main-image">
 			<div>
 				<a href="javascript:void(0)">
-					<div class="w-100">
+					<div class="w-150">
 						<div class="position-relative">
 							<img src="{{ asset('assets/images/slider/SLIDER 1.jpg') }}" alt="Slider">
 						</div>
@@ -16,7 +18,7 @@
 			</div>
 			<div>
 				<a href="/register">
-					<div class="w-100">
+					<div class="w-150">
 						<div class="position-relative">
 							<img src="{{ asset('assets/images/slider/SLIDER 2.jpg') }}" alt="Slider">
 						</div>

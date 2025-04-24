@@ -40,6 +40,9 @@ Route::group(['middleware' => ['campuscms.guest']], function() use ($namespacePr
 
 // Admin Capabilities
 Route::group(['middleware' => ['campuscms.admin']], function() use ($namespacePrefix){
+	//seo
+	Route::get('/admin/seo',$namespacePrefix.'SeoPageController@index')->name('admin.seo.index');
+	Route::post('/admin/seo/store',$namespacePrefix.'SeoPageController@store')->name('admin.seo.store');
 	// Logout
 	Route::post('/admin/logout', $namespacePrefix.'LoginController@logout')->name('admin.logout');
 
