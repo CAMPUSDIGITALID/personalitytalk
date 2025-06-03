@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="main-wrapper my-lg-2 my-3">
+    <div class="main-wrapper ">
         <div class="container">
             <div class="row login-wrapper align-items-center justify-content-between">
                 <div class="col-lg-5 d-none d-lg-block">
@@ -16,7 +16,6 @@
                     <div class="wrapper d-flex align-items-center">
                         <div class="card border-0 shadow-sm rounded-2">
                             <div class="card-header text-center pt-4 bg-transparent mx-4">
-                                <img width="200" class="mb-3" src="{{ asset('assets/images/logo/logo_2.png')}}">
                                 <h2>Selamat Datang</h2>
                                 <p class="m-0">Untuk tetap terhubung dengan kami, silakan login dengan informasi pribadi Anda melalui Username dan Password 🔔</p>
                             </div>

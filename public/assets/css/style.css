@@ -120,12 +120,17 @@ a{text-decoration: none;}
 section#main-slide-top>div{background-image:  url('../../assets/images/background/1015399630.jpg'); box-shadow: var(--shadow-sm);}
 #main-slide-top .title{background: rgba(0,0,0,.5); border-radius: .75em}
 #content{min-height: calc(100vh - 14rem);}
-footer {background-color: #34495e!important;}
+footer {background-color: #e4750e!important;}
+.footer-page{bottom:0; position: fixed;width:100%;}
 .page-item.active .page-link {background-color: var(--primary); border-color: var(--primary);}
 .page-link{color: var(--primary);}
 .page-link:hover{color: var(--primary);}
 .page-link:focus{box-shadow:0 0 0 .25rem var(--primary-s); color: var(--primary);}
-
+    @media (max-width: 770px) {
+      .footer-page {
+        position: relative;
+      }
+    }
 @keyframes dropdown {
     from{ opacity: 0; }
     to{ opacity: 1; }

@@ -17,7 +17,6 @@
           	<!--<h4 class="mb-4">Registrasi</h4>-->
 			<div class="card rounded-1 shadow-sm border-0">
 				<div class="card-header mx-4 bg-transparent text-center py-4 px-0">
-                    <img width="200" class="mb-3" src="{{ asset('assets/images/logo/logo_2.png')}}">
 					<h2 class="mb-0">Selamat Datang</h2>
 					<p>Untuk dapat menikmati layanan kami<br>Silahkan melakukan pendaftaran dengan mengisi form registrasi di bawah ini 🔔</p>
 				</div>
