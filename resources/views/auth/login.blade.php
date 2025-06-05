@@ -4,15 +4,15 @@
 
 @section('content')
 
-    <div class="main-wrapper ">
-        <div class="container">
+    <div class="main-wrapper top">
+        <div class="container py-2">
             <div class="row login-wrapper align-items-center justify-content-between">
                 <div class="col-lg-5 d-none d-lg-block">
                     <div class="d-flex align-items-center h-100">
                         <img class="img-fluid" src="{{asset('assets/images/ilustrasi/undraw_Login_re_4vu2.svg')}}">
                     </div>
                 </div>
-                <div class="col-lg-5">
+                <div class="col-lg-6">
                     <div class="wrapper d-flex align-items-center">
                         <div class="card border-0 shadow-sm rounded-2">
                             <div class="card-header text-center pt-4 bg-transparent mx-4">
@@ -27,7 +27,7 @@
                                         {{ $message }}
                                     </div>
                                     @endif
-                                    <div class="form-group mb-4">
+                                    <div class="form-group mb-2">
                                         <label class="control-label">Username / Email</label>
                                         <div class="input-group">
                                             <span class="input-group-text {{ $errors->has('username') ? 'border-danger' : '' }}"><i class="bi bi-person-fill"></i></span>
@@ -37,7 +37,7 @@
                                         <div class="form-control-feedback text-danger">{{ ucfirst($errors->first('username')) }}</div>
                                         @endif
                                     </div>
-                                    <div class="form-group mb-4">
+                                    <div class="form-group mb-2">
                                         <label class="control-label">Password</label>
                                         <div class="input-group">
                                             <span class="input-group-text {{ $errors->has('password') ? 'border-danger' : '' }}"><i class="bi bi-key-fill"></i></span>
@@ -48,15 +48,16 @@
                                         <div class="form-control-feedback text-danger">{{ ucfirst($errors->first('password')) }}</div>
                                         @endif
                                     </div>
-                                    <div class="mb-4">
-                                        <div class="form-group">
+                                    <div class="mb-2">
                                         <a href="{{ route('auth.forgotpassword') }}" class="link-primary">Lupa Password?</a>
-                                        </div>
                                     </div>
-                                    <div class="d-grid gap-2">
+                                    <div class="d-grid mb-2">
                                         <button type="submit" class="btn btn-primary rounded px-4 btn-block">Masuk</button>
-                                        <p class="my-2 text-center">Belum punya akun?</p>
-                                        <a href="{{ route('auth.register') }}" class="btn btn-secondary rounded px-4 btn-block">Daftar</a>
+                                    </div>
+
+                                    <div class="d-grid">
+                                        <span class="my-2 text-center">Belum punya akun? <a style="color:#e4750e" href="{{ route('auth.register') }}">Daftar Disini</a></span> 
+                                        
                                     </div>
                                 </form>
                             </div>
@@ -69,7 +70,7 @@
 @endsection
 @section('css-extra')
 <style>
-    .login-wrapper{min-height: calc(100vh - 19rem)}
+    .login-wrapper{min-height: calc(100vh - 20rem)}
 </style>
 @endsection
 @section('js-extra')
